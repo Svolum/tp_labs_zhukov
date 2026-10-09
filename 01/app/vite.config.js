@@ -43,4 +43,11 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(version),
   },
+  // Настройки dev-сервера для работы за прокси / под доменом
+  server: {
+    host: true, // прослушивание 0.0.0.0 (критично для Docker / внешних запросов)
+    allowedHosts: [
+      'game.notomo.ru',
+    ],
+  },
 });

@@ -1,0 +1,17 @@
+services:
+  zigzaggame:
+    build: .
+    networks:
+      - proxy_traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.zigzag-game.rule=Host(`game.notomo.ru`)"
+      - "traefik.http.routers.zigzag-game.entrypoints=websecure"
+      - "traefik.http.routers.zigzag-game.tls=true"
+      - "traefik.http.routers.zigzag-game.middlewares=zigzag-game-auth"
+      - "traefik.http.middlewares.zigzag-game-auth.basicauth.users=${AUTH_USER}"
+      - "traefik.http.services.zigzag-game.loadbalancer.server.port=5173"
+
+networks:
+  proxy_traefik:
+    external: true
